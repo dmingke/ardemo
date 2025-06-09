@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR Model Viewer</title>
+  </head>
+  <body>
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <model-viewer
+      id="arModel"
+      src="base_basic_shaded.glb"
+      ar
+      ar-modes="scene-viewer quick-look webxr"
+      animation-name="Walk"
+      autoplay
+      camera-controls
+      style="width: 100%; height: 100vh"
+    >
+    </model-viewer>
+    <script>
+      (() => {
+        const modelViewer = document.getElementById("arModel");
+        let longPressTimer = null;
+        let isLongPress = false;
+
+        modelViewer.addEventListener("pointerdown", (e) => {
+            
+          isLongPress = false;
+          longPressTimer = setTimeout(() => {
+            isLongPress = true;
+            changeModel('base_basic_shaded_run')
+          }, 500); // 500ms 视为长按
+        });
+
+        modelViewer.addEventListener("pointerup", (e) => {
+            console.log("I press up")
+          if (longPressTimer) clearTimeout(longPressTimer);
+          if (!isLongPress) {
+            changeModel('base_basic_shaded_idle')
+          } else {
+            changeModel('base_basic_shaded')
+          }
+        });
+
+        function changeModel(modelName) {
+          modelViewer.setAttribute("src", `${modelName}.glb`);
+        }
+      })();
+    </script>
+  </body>
+</html>
