@@ -10,9 +10,21 @@
       type="module"
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
     ></script>
+    <    <!-- filepath: /Users/dmingke/Documents/GitHub/ardemo/index.html -->
     <model-viewer
       id="arModel"
-      src="base_basic_shaded.usdz"
+      src="base_basic_shaded.glb"
+      ios-src="base_basic_pbr.usdz"
+      ar
+      ar-modes="scene-viewer quick-look webxr"
+      animation-name="Walk"
+      autoplay
+      camera-controls
+      style="width: 100%; height: 100vh"
+    >
+    </model-viewer>
+      id="arModel"
+      src="base_basic_pbr.usdz"
       ar
       ar-modes="scene-viewer quick-look webxr"
       animation-name="Walk"
@@ -46,8 +58,14 @@
           }
         });
 
-        function changeModel(modelName) {
-          modelViewer.setAttribute("src", `${modelName}.usdz`);
+                function changeModel(modelName) {
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (isIOS) {
+            modelViewer.setAttribute("ios-src", `${modelName}.usdz`);
+            modelViewer.setAttribute("src", `${modelName}.glb`);
+          } else {
+            modelViewer.setAttribute("src", `${modelName}.glb`);
+          }
         }
       })();
     </script>
