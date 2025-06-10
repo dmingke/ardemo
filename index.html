@@ -12,7 +12,7 @@
     ></script>
     <model-viewer
       id="arModel"
-      src="base_basic_shaded.glb"
+      src="base_basic_shaded.usdz"
       ar
       ar-modes="scene-viewer quick-look webxr"
       animation-name="Walk"
@@ -47,7 +47,7 @@
         });
 
         function changeModel(modelName) {
-          modelViewer.setAttribute("src", `${modelName}.glb`);
+          modelViewer.setAttribute("src", `${modelName}.usdz`);
         }
       })();
     </script>
